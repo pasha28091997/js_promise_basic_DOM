@@ -1,16 +1,22 @@
 'use strict';
 
 const promise1 = new Promise((resolve) => {
-  document.querySelector('.logo').addEventListener('click', () => {
-    resolve('Promise was resolved!');
-  });
+  const logo = document.querySelector('.logo');
+
+  if (logo) {
+    logo.addEventListener('click', () => {
+      resolve('Promise was resolved!');
+    });
+  } else {
+    // eslint-disable-next-line no-console
+    console.error('.logo element not found in the DOM.');
+  }
 });
 
 // eslint-disable-next-line promise/param-names, no-unused-vars
 const promise2 = new Promise((_, reject) => {
   setTimeout(() => {
-    // eslint-disable-next-line prefer-promise-reject-errors
-    reject('Promise was rejected!');
+    reject(new Error('Promise was rejected!'));
   }, 3000);
 });
 
